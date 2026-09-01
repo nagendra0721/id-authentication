@@ -200,5 +200,4 @@ public class OTPController {
 			throw new IdAuthenticationBusinessException(IdAuthenticationErrorConstants.UNABLE_TO_PROCESS);
 		}
 	}
-
 }
