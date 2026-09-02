@@ -12,12 +12,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class ConsolidatedIdaRouteConfig implements WebMvcConfigurer {
 
-	private static final String INTERNAL_CONTROLLER_PACKAGE =
-			"io.mosip.authentication.service.internal.controller";
+	private static final String[] INTERNAL_CONTROLLER_PACKAGES = {
+			"io.mosip.authentication.service.internal.controller",
+			"io.mosip.kernel.keymanagerservice.controller",
+			"io.mosip.kernel.cryptomanager.controller",
+			"io.mosip.kernel.signature.controller",
+			"io.mosip.kernel.partnercertservice.controller"
+	};
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		configurer.addPathPrefix("/internal",
-				HandlerTypePredicate.forBasePackage(INTERNAL_CONTROLLER_PACKAGE));
+				HandlerTypePredicate.forBasePackage(INTERNAL_CONTROLLER_PACKAGES));
 	}
 }
