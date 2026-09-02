@@ -1,20 +1,25 @@
 package io.mosip.authentication.service.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Keeps the health URLs of the former internal and OTP microservices valid
+ * Keeps the actuator URLs of the former internal and OTP microservices valid
  * when they run from the consolidated IDA application.
  */
 @Controller
 public class LegacyActuatorPathController {
 
-	@GetMapping({
-			"/internal/actuator/health",
-			"/otp/actuator/health"
+	@RequestMapping({
+			"/internal/actuator/**",
+			"/otp/actuator/**"
 	})
-	public String health() {
-		return "forward:/actuator/health";
+	public String actuator(HttpServletRequest request) {
+		String path = request.getRequestURI().substring(request.getContextPath().length());
+		if (path.startsWith("/internal")) {
+			return "forward:" + path.substring("/internal".length());
+		}
+		return "forward:" + path.substring("/otp".length());
 	}
 }
