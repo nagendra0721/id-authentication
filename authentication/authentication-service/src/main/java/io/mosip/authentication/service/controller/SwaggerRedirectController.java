@@ -18,7 +18,7 @@ public class SwaggerRedirectController {
 	}, produces = MediaType.TEXT_HTML_VALUE)
 	@ResponseBody
 	public String externalSwagger(HttpServletRequest request) {
-		return swaggerUi(request.getContextPath() + "/v3/api-docs/external");
+		return swaggerUi(request.getContextPath() + "/v3/api-docs");
 	}
 
 	@GetMapping(value = {
